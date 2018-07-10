@@ -2,8 +2,12 @@ package br.com.caelum.listacontatos.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.caelum.listacontatos.modelo.Aluno;
 
@@ -53,5 +57,34 @@ public class AlunoDao extends SQLiteOpenHelper {
         database.insert("Alunos", null, dados);
 
 
+    }
+
+
+    public List<Aluno> getAlunos() {
+
+        String sql = "select * from Alunos";
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        Cursor cursor = database.rawQuery(sql, null);
+
+        List<Aluno> alunos = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            Aluno aluno = new Aluno();
+
+            aluno.setId(cursor.getLong(cursor.getColumnIndex("id")));
+            aluno.setNome(cursor.getString(cursor.getColumnIndex("nome")));
+            aluno.setTelefone(cursor.getString(cursor.getColumnIndex("telefone")));
+            aluno.setEndereco(cursor.getString(cursor.getColumnIndex("endereco")));
+            aluno.setEmail(cursor.getString(cursor.getColumnIndex("site")));
+            aluno.setNota(cursor.getDouble(cursor.getColumnIndex("nota")));
+
+            alunos.add(aluno);
+        }
+
+        cursor.close();
+
+        return alunos;
     }
 }

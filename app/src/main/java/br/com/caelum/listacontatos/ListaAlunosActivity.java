@@ -12,29 +12,23 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
+
+import br.com.caelum.listacontatos.dao.AlunoDao;
+import br.com.caelum.listacontatos.modelo.Aluno;
+
 import static android.widget.AdapterView.OnItemLongClickListener;
 
 public class ListaAlunosActivity extends AppCompatActivity {
+
+    private ListView lista;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
 
-
-        final String[] alunos = {"Augusto", "Daniel", "Fernando", "Gabriel",
-                "José ", "Nicolas", "Sandro", "Thaize"};
-
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, alunos);
-
-
-        final ListView lista = findViewById(R.id.lista);
-
-
-        lista.setAdapter(adapter);
-
+        lista = findViewById(R.id.lista);
 
         lista.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -42,10 +36,10 @@ public class ListaAlunosActivity extends AppCompatActivity {
                                     View view, int posicao, long id) {
 
 
-                String aluno = (String) lista.getItemAtPosition(posicao);
+                Aluno aluno = (Aluno) lista.getItemAtPosition(posicao);
 
                 Toast.makeText(ListaAlunosActivity.this,
-                        "Você clicou no " + aluno,
+                        "Você clicou no " + aluno.getNome(),
                         Toast.LENGTH_SHORT)
                         .show();
 
@@ -80,6 +74,25 @@ public class ListaAlunosActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        AlunoDao alunoDao = new AlunoDao(this);
+
+        List<Aluno> alunos = alunoDao.getAlunos();
+
+        alunoDao.close();
+
+        ArrayAdapter<Aluno> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, alunos);
+
+
+
+        lista.setAdapter(adapter);
 
     }
 }

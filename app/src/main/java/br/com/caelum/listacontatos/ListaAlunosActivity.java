@@ -1,6 +1,8 @@
 package br.com.caelum.listacontatos;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -64,6 +66,16 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        FloatingActionButton btnAdd = findViewById(R.id.fab);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Teste", Snackbar.LENGTH_LONG).show();
+            }
+        });
+
 
     }
 }

@@ -1,5 +1,6 @@
 package br.com.caelum.listacontatos;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,7 +19,9 @@ public class FormularioActivity extends AppCompatActivity {
         salvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(FormularioActivity.this, "Salvando novo aluno", Toast.LENGTH_SHORT).show();
+
+                finish();
+
             }
         });
     }

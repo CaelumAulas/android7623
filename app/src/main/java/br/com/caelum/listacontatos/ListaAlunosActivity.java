@@ -1,5 +1,6 @@
 package br.com.caelum.listacontatos;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,7 +17,7 @@ import static android.widget.AdapterView.OnItemLongClickListener;
 public class ListaAlunosActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
 
@@ -72,7 +73,10 @@ public class ListaAlunosActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Teste", Snackbar.LENGTH_LONG).show();
+
+                Intent intencao = new Intent(ListaAlunosActivity.this,
+                        FormularioActivity.class);
+                startActivity(intencao);
             }
         });
 

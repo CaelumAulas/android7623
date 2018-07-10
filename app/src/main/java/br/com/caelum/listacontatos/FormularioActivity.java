@@ -6,10 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.RatingBar;
-import android.widget.Toast;
 
+import br.com.caelum.listacontatos.dao.AlunoDao;
 import br.com.caelum.listacontatos.helper.FormularioHelper;
 import br.com.caelum.listacontatos.modelo.Aluno;
 
@@ -38,10 +36,20 @@ public class FormularioActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_formulario_alunos_salvar) {
 
-            Aluno aluno = helper.pegaAlunoDoFormulario();
+            if (helper.camposEstaoValidos()) {
 
-            Toast.makeText(this, aluno.getNome(), Toast.LENGTH_SHORT).show();
+                Aluno aluno = helper.pegaAlunoDoFormulario();
 
+                AlunoDao dao = new AlunoDao(this);
+
+                dao.insere(aluno);
+
+                dao.close();
+
+                finish();
+            } else {
+                helper.mostraErro();
+            }
 
         }
 

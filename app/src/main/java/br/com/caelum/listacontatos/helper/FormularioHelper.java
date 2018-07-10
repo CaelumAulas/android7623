@@ -1,5 +1,6 @@
 package br.com.caelum.listacontatos.helper;
 
+import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
@@ -12,6 +13,7 @@ public class FormularioHelper {
     private Aluno aluno;
 
     private EditText nome;
+    private TextInputLayout tilNome;
     private EditText telefone;
     private EditText endereco;
     private EditText email;
@@ -19,6 +21,7 @@ public class FormularioHelper {
 
     public FormularioHelper(FormularioActivity activity) {
         this.nome = activity.findViewById(R.id.formulario_nome);
+        this.tilNome = activity.findViewById(R.id.formulario_nome_til);
         this.telefone = activity.findViewById(R.id.formulario_telefone);
         this.endereco = activity.findViewById(R.id.formulario_endereco);
         this.email = activity.findViewById(R.id.formulario_email);
@@ -39,5 +42,13 @@ public class FormularioHelper {
     }
 
 
+    public boolean camposEstaoValidos() {
+
+        return !nome.getText().toString().trim().isEmpty();
+    }
+
+    public void mostraErro() {
+        tilNome.setError("Precisa ser preenchido");
+    }
 }
 

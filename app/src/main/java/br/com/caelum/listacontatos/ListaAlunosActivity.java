@@ -1,22 +1,28 @@
 package br.com.caelum.listacontatos;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import br.com.caelum.listacontatos.dao.AlunoDao;
 import br.com.caelum.listacontatos.modelo.Aluno;
 
-import static android.widget.AdapterView.OnItemLongClickListener;
+import static android.content.DialogInterface.*;
+import static android.view.MenuItem.OnMenuItemClickListener;
 
 public class ListaAlunosActivity extends AppCompatActivity {
 
@@ -51,21 +57,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
             }
         });
 
-        lista.setOnItemLongClickListener(new OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView,
-                                           View view, int posicao, long id) {
-
-
-                Toast.makeText(ListaAlunosActivity.this,
-                        "Posicao " + posicao,
-                        Toast.LENGTH_LONG)
-                        .show();
-
-
-                return true;
-            }
-        });
 
         FloatingActionButton btnAdd = findViewById(R.id.fab);
 
@@ -80,12 +71,19 @@ public class ListaAlunosActivity extends AppCompatActivity {
         });
 
 
+        registerForContextMenu(lista);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
+        carregaLista();
+
+    }
+
+    private void carregaLista() {
         AlunoDao alunoDao = new AlunoDao(this);
 
         List<Aluno> alunos = alunoDao.getAlunos();
@@ -96,8 +94,52 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, alunos);
 
 
-
         lista.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu,
+                                    View v,
+                                    ContextMenuInfo menuInfo) {
+
+
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+        int posicao = info.position;
+        final Aluno aluno = (Aluno) lista.getItemAtPosition(posicao);
+
+        MenuItem excluir = menu.add("Excluir");
+        MenuItem sms = menu.add("SMS");
+        MenuItem ligar = menu.add("Ligar");
+        MenuItem site = menu.add("Site");
+        MenuItem mapa = menu.add("Mapa");
+
+        excluir.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                new AlertDialog.Builder(ListaAlunosActivity.this)
+                        .setMessage("Você quer deletar esse aluno ? ")
+                        .setPositiveButton("Sim", new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                AlunoDao alunoDao = new AlunoDao(ListaAlunosActivity.this);
+
+                                alunoDao.excluir(aluno);
+
+                                alunoDao.close();
+
+                                carregaLista();
+
+                            }
+                        }).setNegativeButton("Não", null)
+                        .show();
+
+
+
+                return false;
+            }
+        });
 
     }
 }

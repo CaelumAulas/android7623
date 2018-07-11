@@ -1,12 +1,19 @@
 package br.com.caelum.listacontatos;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+import java.io.File;
 
 import br.com.caelum.listacontatos.dao.AlunoDao;
 import br.com.caelum.listacontatos.helper.FormularioHelper;
@@ -14,6 +21,7 @@ import br.com.caelum.listacontatos.modelo.Aluno;
 
 public class FormularioActivity extends AppCompatActivity {
     private FormularioHelper helper;
+    private String localArquivo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +41,50 @@ public class FormularioActivity extends AppCompatActivity {
             helper.populaCampos(aluno);
         }
 
+        FloatingActionButton btnFoto = helper.getBtnFoto();
+
+        btnFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent irParaCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+
+                localArquivo = getExternalFilesDir("foto")
+                        + "/" + System.currentTimeMillis() + ".jpg";
+
+                File foto = new File(localArquivo);
+                Uri local = Uri.fromFile(foto);
+                irParaCamera.putExtra(MediaStore.EXTRA_OUTPUT, local);
+
+                startActivityForResult(irParaCamera, 123);
+
+            }
+        });
+
+
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 123) {
+
+            if (resultCode == RESULT_OK) {
+
+                helper.carregaFoto(localArquivo);
+            } else {
+                Toast.makeText(this, "Que pena que voce não tirou a foto", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();

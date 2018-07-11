@@ -10,6 +10,7 @@ public class Aluno implements Serializable{
     private String endereco;
     private String email;
     private Double nota;
+    private String caminhoFoto;
 
     public String getNome() {
         return nome;
@@ -63,5 +64,13 @@ public class Aluno implements Serializable{
     public String toString() {
         return id + " - " + nome;
 
+    }
+
+    public String getCaminhoFoto() {
+        return caminhoFoto;
+    }
+
+    public void setCaminhoFoto(String caminhoFoto) {
+        this.caminhoFoto = caminhoFoto;
     }
 }

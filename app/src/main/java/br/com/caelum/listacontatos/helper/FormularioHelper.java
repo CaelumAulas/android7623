@@ -1,7 +1,11 @@
 package br.com.caelum.listacontatos.helper;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 
 import br.com.caelum.listacontatos.FormularioActivity;
@@ -12,6 +16,8 @@ public class FormularioHelper {
 
     private Aluno aluno;
 
+    private ImageView foto;
+    private FloatingActionButton btnFoto;
     private EditText nome;
     private TextInputLayout tilNome;
     private EditText telefone;
@@ -26,6 +32,8 @@ public class FormularioHelper {
         this.endereco = activity.findViewById(R.id.formulario_endereco);
         this.email = activity.findViewById(R.id.formulario_email);
         this.nota = activity.findViewById(R.id.formulario_nota);
+        this.btnFoto = activity.findViewById(R.id.formulario_pega_foto);
+        this.foto = activity.findViewById(R.id.formulario_foto);
 
         this.aluno = new Aluno();
     }
@@ -37,6 +45,7 @@ public class FormularioHelper {
         aluno.setEndereco(endereco.getText().toString());
         aluno.setTelefone(telefone.getText().toString());
         aluno.setNota(Double.valueOf(nota.getRating()));
+        aluno.setCaminhoFoto((String) foto.getTag());
 
         return aluno;
     }
@@ -60,6 +69,22 @@ public class FormularioHelper {
         nota.setRating(aluno.getNota().floatValue());
 
         this.aluno = aluno;
+    }
+
+    public FloatingActionButton getBtnFoto() {
+        return btnFoto;
+    }
+
+    public void carregaFoto(String localArquivo) {
+
+        Bitmap bitmap = BitmapFactory.decodeFile(localArquivo);
+        Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 300, 200, true);
+
+        foto.setImageBitmap(bitmapReduzido);
+        foto.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        foto.setTag(localArquivo);
+
     }
 }
 

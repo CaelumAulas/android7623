@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -94,8 +93,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
         alunoDao.close();
 
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, alunos);
+        AlunoAdapter adapter = new AlunoAdapter(alunos, this);
 
 
         lista.setAdapter(adapter);

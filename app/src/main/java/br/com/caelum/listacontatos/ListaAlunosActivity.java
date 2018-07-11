@@ -2,7 +2,10 @@ package br.com.caelum.listacontatos;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +18,14 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import br.com.caelum.listacontatos.dao.AlunoDao;
 import br.com.caelum.listacontatos.modelo.Aluno;
 
-import static android.content.DialogInterface.*;
+import static android.content.DialogInterface.OnClickListener;
 import static android.view.MenuItem.OnMenuItemClickListener;
 
 public class ListaAlunosActivity extends AppCompatActivity {
@@ -136,10 +140,52 @@ public class ListaAlunosActivity extends AppCompatActivity {
                         .show();
 
 
-
                 return false;
             }
         });
+
+
+        sms.setIntent(mandarSmsPara(aluno));
+
+        mapa.setIntent(vaiParaEnderecoDo(aluno));
+
+
+    }
+
+    @NonNull
+    private Intent vaiParaEnderecoDo(Aluno aluno) {
+        Intent irParaMapa = new Intent(Intent.ACTION_VIEW);
+
+        irParaMapa.setData(Uri.parse("geo:0,0?z=15&q=" + aluno.getEndereco()));
+        return irParaMapa;
+    }
+
+    @NonNull
+    private Intent mandarSmsPara(Aluno aluno) {
+        Intent irSms = new Intent(Intent.ACTION_VIEW);
+
+        irSms.setData(Uri.parse("sms:" + aluno.getTelefone()));
+
+        irSms.putExtra("sms_body", "Sua nota foi : " + aluno.getNota());
+        return irSms;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions,
+                grantResults);
+
+
+        if (requestCode == 123) {
+            int resultado = grantResults[0];
+
+            if (resultado == PackageManager.PERMISSION_DENIED) {
+                Toast.makeText(this, "Preciso da permissão para funcionnar", Toast.LENGTH_SHORT).show();
+            }
+        }
 
     }
 }

@@ -14,7 +14,7 @@ import br.com.caelum.listacontatos.modelo.Aluno;
 
 public class AlunoDao extends SQLiteOpenHelper {
 
-    private static final int VERSAO = 1;
+    private static final int VERSAO = 2;
 
     public AlunoDao(Context contexto) {
         super(contexto, "CadastroCaelum", null, VERSAO);
@@ -29,7 +29,8 @@ public class AlunoDao extends SQLiteOpenHelper {
                 "telefone text," +
                 "endereco text," +
                 "site text," +
-                "nota real" +
+                "nota real," +
+                "foto text" +
                 ");";
 
         sqLiteDatabase.execSQL(sql);
@@ -39,7 +40,17 @@ public class AlunoDao extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase,
                           int antiga, int nova) {
-        // faz nada por enquanto
+
+        switch (antiga) {
+            case 1:
+                String sql = "alter table Alunos add column foto text";
+
+                sqLiteDatabase.execSQL(sql);
+
+
+        }
+
+
     }
 
 
@@ -63,6 +74,7 @@ public class AlunoDao extends SQLiteOpenHelper {
         dados.put("endereco", aluno.getEndereco());
         dados.put("site", aluno.getEmail());
         dados.put("nota", aluno.getNota());
+        dados.put("foto", aluno.getCaminhoFoto());
         return dados;
     }
 
@@ -97,6 +109,7 @@ public class AlunoDao extends SQLiteOpenHelper {
             aluno.setEndereco(cursor.getString(cursor.getColumnIndex("endereco")));
             aluno.setEmail(cursor.getString(cursor.getColumnIndex("site")));
             aluno.setNota(cursor.getDouble(cursor.getColumnIndex("nota")));
+            aluno.setCaminhoFoto(cursor.getString(cursor.getColumnIndex("foto")));
 
             alunos.add(aluno);
         }

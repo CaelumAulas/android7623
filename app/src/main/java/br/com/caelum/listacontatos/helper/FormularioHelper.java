@@ -68,6 +68,9 @@ public class FormularioHelper {
 
         nota.setRating(aluno.getNota().floatValue());
 
+        if (aluno.getCaminhoFoto() != null) {
+            carregaFoto(aluno.getCaminhoFoto());
+        }
         this.aluno = aluno;
     }
 

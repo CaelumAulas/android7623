@@ -1,5 +1,6 @@
 package br.com.caelum.listacontatos;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,15 @@ public class FormularioActivity extends AppCompatActivity {
 
         helper = new FormularioHelper(this);
 
+
+        Intent intent = getIntent();
+
+        Aluno aluno = (Aluno) intent.getSerializableExtra("aluno");
+
+        if (aluno != null) {
+            helper.populaCampos(aluno);
+        }
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -42,8 +52,11 @@ public class FormularioActivity extends AppCompatActivity {
 
                 AlunoDao dao = new AlunoDao(this);
 
-                dao.insere(aluno);
-
+                if (aluno.getId() == null) {
+                    dao.insere(aluno);
+                } else {
+                    dao.altera(aluno);
+                }
                 dao.close();
 
                 finish();

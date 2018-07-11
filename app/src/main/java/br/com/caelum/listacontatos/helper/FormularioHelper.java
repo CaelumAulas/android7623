@@ -50,5 +50,16 @@ public class FormularioHelper {
     public void mostraErro() {
         tilNome.setError("Precisa ser preenchido");
     }
+
+    public void populaCampos(Aluno aluno) {
+        nome.setText(aluno.getNome());
+        telefone.setText(aluno.getTelefone());
+        endereco.setText(aluno.getEndereco());
+        email.setText(aluno.getEmail());
+
+        nota.setRating(aluno.getNota().floatValue());
+
+        this.aluno = aluno;
+    }
 }
 

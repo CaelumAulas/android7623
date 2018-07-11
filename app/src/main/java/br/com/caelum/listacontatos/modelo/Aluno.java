@@ -1,6 +1,8 @@
 package br.com.caelum.listacontatos.modelo;
 
-public class Aluno {
+import java.io.Serializable;
+
+public class Aluno implements Serializable{
 
     private Long id;
     private String nome;

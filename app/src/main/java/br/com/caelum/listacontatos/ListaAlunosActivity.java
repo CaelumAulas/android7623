@@ -3,7 +3,6 @@ package br.com.caelum.listacontatos;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,12 +35,18 @@ public class ListaAlunosActivity extends AppCompatActivity {
                                     View view, int posicao, long id) {
 
 
-                Aluno aluno = (Aluno) lista.getItemAtPosition(posicao);
+                Aluno aluno = (Aluno) adapterView.getItemAtPosition(posicao);
 
-                Toast.makeText(ListaAlunosActivity.this,
-                        "Você clicou no " + aluno.getNome(),
-                        Toast.LENGTH_SHORT)
-                        .show();
+                Intent edicao = new Intent(ListaAlunosActivity.this,
+                        FormularioActivity.class);
+
+
+                edicao.putExtra("aluno", aluno);
+
+                startActivity(edicao);
+
+
+
 
             }
         });

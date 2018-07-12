@@ -129,4 +129,22 @@ public class AlunoDao extends SQLiteOpenHelper {
 
 
     }
+
+    public boolean consultaTelefone(String telefoneDoSMS) {
+
+        String sql = "select * from Alunos where telefone = ?";
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        String[] parametros = {telefoneDoSMS};
+        Cursor cursor = database.rawQuery(sql, parametros);
+
+        int tamanhoDoCursor = cursor.getCount();
+
+        cursor.close();
+
+        return tamanhoDoCursor > 0;
+
+
+    }
 }

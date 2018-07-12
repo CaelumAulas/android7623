@@ -11,6 +11,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +20,8 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -185,5 +189,40 @@ public class ListaAlunosActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+
+        inflater.inflate(R.menu.menu_lista_alunos, menu);
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        AlunoDao alunoDao = new AlunoDao(this);
+        List<Aluno> alunos = alunoDao.getAlunos();
+        alunoDao.close();
+
+        switch (item.getItemId()) {
+            case R.id.menu_lista_alunos_media:
+
+
+                AlunoConverter converter = new AlunoConverter();
+                String json = converter.toJSON(alunos);
+                Toast.makeText(this, json, Toast.LENGTH_SHORT).show();
+
+                return true;
+
+
+        }
+
+
+        return true;
     }
 }

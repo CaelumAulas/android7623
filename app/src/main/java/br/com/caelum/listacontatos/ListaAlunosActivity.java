@@ -215,6 +215,12 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
                 return true;
 
+            case R.id.menu_lista_alunos_provas:
+
+                Intent vaiPraProvas = new Intent(this, ProvasActivity.class);
+                startActivity(vaiPraProvas);
+
+                return true;
 
         }
 

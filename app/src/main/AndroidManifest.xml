@@ -25,6 +25,8 @@
 
         <activity android:name=".FormularioActivity" />
 
+        <activity android:name=".ProvasActivity" />
+
         <receiver
             android:name=".servico.SMSListener"
             android:enabled="true">

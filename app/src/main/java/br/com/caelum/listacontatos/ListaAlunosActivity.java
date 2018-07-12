@@ -21,12 +21,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
 import java.util.List;
 
 import br.com.caelum.listacontatos.dao.AlunoDao;
 import br.com.caelum.listacontatos.modelo.Aluno;
-import br.com.caelum.listacontatos.webservices.Webclient;
+import br.com.caelum.listacontatos.webservices.BuscaMediaTask;
 
 import static android.content.DialogInterface.OnClickListener;
 import static android.view.MenuItem.OnMenuItemClickListener;
@@ -205,22 +204,13 @@ public class ListaAlunosActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        AlunoDao alunoDao = new AlunoDao(this);
-        List<Aluno> alunos = alunoDao.getAlunos();
-        alunoDao.close();
-
         switch (item.getItemId()) {
             case R.id.menu_lista_alunos_media:
 
 
-                AlunoConverter converter = new AlunoConverter();
-                String json = converter.toJSON(alunos);
+                BuscaMediaTask task = new BuscaMediaTask(this);
 
-                Webclient webclient = new Webclient();
-
-                String media = webclient.pegaMedia(json);
-
-                Toast.makeText(this, media, Toast.LENGTH_SHORT).show();
+                task.execute();
 
 
                 return true;
@@ -231,4 +221,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
         return true;
     }
+
+
 }

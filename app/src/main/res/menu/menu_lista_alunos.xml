@@ -6,10 +6,5 @@
         android:icon="@android:drawable/ic_menu_upload"
         android:title="Media"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/menu_lista_alunos_media2"
-        android:icon="@android:drawable/ic_menu_upload"
-        android:title="Media 2"
-        app:showAsAction="always" />
 </menu>
 

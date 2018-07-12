@@ -21,12 +21,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 
 import java.util.List;
 
 import br.com.caelum.listacontatos.dao.AlunoDao;
 import br.com.caelum.listacontatos.modelo.Aluno;
+import br.com.caelum.listacontatos.webservices.Webclient;
 
 import static android.content.DialogInterface.OnClickListener;
 import static android.view.MenuItem.OnMenuItemClickListener;
@@ -215,7 +215,13 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
                 AlunoConverter converter = new AlunoConverter();
                 String json = converter.toJSON(alunos);
-                Toast.makeText(this, json, Toast.LENGTH_SHORT).show();
+
+                Webclient webclient = new Webclient();
+
+                String media = webclient.pegaMedia(json);
+
+                Toast.makeText(this, media, Toast.LENGTH_SHORT).show();
+
 
                 return true;
 

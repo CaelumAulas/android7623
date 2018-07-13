@@ -4,17 +4,21 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
 
+import br.com.caelum.listacontatos.ProvasActivity;
 import br.com.caelum.listacontatos.R;
 import br.com.caelum.listacontatos.modelo.Prova;
 
@@ -37,7 +41,13 @@ public class ListaProvasFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int posicao, long l) {
                 Prova prova = (Prova) adapterView.getItemAtPosition(posicao);
 
-                Toast.makeText(getContext(), prova.getMateria(), Toast.LENGTH_SHORT).show();
+                ProvasActivity activity = (ProvasActivity) getActivity();
+
+                activity.lidaComProva(prova);
+
+
+
+
             }
         });
 

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import br.com.caelum.listacontatos.fragment.DetalhesProvaFragment;
 import br.com.caelum.listacontatos.fragment.ListaProvasFragment;
 
 public class ProvasActivity extends AppCompatActivity {
@@ -20,9 +21,19 @@ public class ProvasActivity extends AppCompatActivity {
 
         FragmentTransaction transaction = manager.beginTransaction();
 
-        transaction.replace(R.id.provas_frame, new ListaProvasFragment());
+        if (taDeitado()) {
+            transaction.replace(R.id.provas_frame_esquerda, new ListaProvasFragment());
+            transaction.replace(R.id.provas_frame_direita, new DetalhesProvaFragment());
+        } else {
+            transaction.replace(R.id.provas_frame, new ListaProvasFragment());
 
+        }
         transaction.commit();
 
+    }
+
+    private boolean taDeitado() {
+        return getResources()
+                .getBoolean(R.bool.isLand);
     }
 }

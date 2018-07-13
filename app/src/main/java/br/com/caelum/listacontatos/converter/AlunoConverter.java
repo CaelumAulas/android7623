@@ -1,4 +1,4 @@
-package br.com.caelum.listacontatos;
+package br.com.caelum.listacontatos.converter;
 
 import org.json.JSONException;
 import org.json.JSONStringer;

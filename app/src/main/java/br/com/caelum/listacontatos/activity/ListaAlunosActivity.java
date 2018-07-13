@@ -1,4 +1,4 @@
-package br.com.caelum.listacontatos;
+package br.com.caelum.listacontatos.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import br.com.caelum.listacontatos.R;
+import br.com.caelum.listacontatos.adapter.AlunoAdapter;
 import br.com.caelum.listacontatos.dao.AlunoDao;
 import br.com.caelum.listacontatos.modelo.Aluno;
 import br.com.caelum.listacontatos.webservices.BuscaMediaTask;

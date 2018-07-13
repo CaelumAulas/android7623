@@ -1,4 +1,4 @@
-package br.com.caelum.listacontatos;
+package br.com.caelum.listacontatos.activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import br.com.caelum.listacontatos.R;
 import br.com.caelum.listacontatos.dao.AlunoDao;
 import br.com.caelum.listacontatos.helper.FormularioHelper;
 import br.com.caelum.listacontatos.modelo.Aluno;

@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListaAlunosActivity">
+        <activity android:name=".activity.ListaAlunosActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,9 +23,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".FormularioActivity" />
+        <activity android:name=".activity.FormularioActivity" />
 
-        <activity android:name=".ProvasActivity" />
+        <activity android:name=".activity.ProvasActivity" />
 
         <receiver
             android:name=".servico.SMSListener"

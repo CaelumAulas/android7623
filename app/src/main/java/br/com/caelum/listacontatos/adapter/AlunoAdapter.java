@@ -1,4 +1,4 @@
-package br.com.caelum.listacontatos;
+package br.com.caelum.listacontatos.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import br.com.caelum.listacontatos.R;
 import br.com.caelum.listacontatos.modelo.Aluno;
 
 public class AlunoAdapter extends BaseAdapter {

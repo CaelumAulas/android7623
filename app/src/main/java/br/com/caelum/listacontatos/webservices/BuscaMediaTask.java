@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import br.com.caelum.listacontatos.AlunoConverter;
+import br.com.caelum.listacontatos.converter.AlunoConverter;
 import br.com.caelum.listacontatos.dao.AlunoDao;
 import br.com.caelum.listacontatos.modelo.Aluno;
 

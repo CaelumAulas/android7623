@@ -1,4 +1,4 @@
-package br.com.caelum.listacontatos;
+package br.com.caelum.listacontatos.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import br.com.caelum.listacontatos.R;
 import br.com.caelum.listacontatos.fragment.DetalhesProvaFragment;
 import br.com.caelum.listacontatos.fragment.ListaProvasFragment;
 import br.com.caelum.listacontatos.modelo.Prova;
